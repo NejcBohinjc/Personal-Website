@@ -86,6 +86,12 @@ const translations = {
     'contact.form.sent':       '✓ Message sent!',
 
     /* --- Footer --- */
+    /* --- Project filters --- */
+    'filter.all':              'All',
+    'filter.ai':               'AI',
+    'filter.networking':       'Networking',
+    'filter.entrepreneurship': 'Entrepreneurship',
+
     'footer.text': '© 2025 Nejc Bohinjc.',
   },
 
@@ -113,7 +119,7 @@ const translations = {
     /* --- Interests --- */
     'interests.networking':       'Omrežja',
     'interests.networking.desc':  'Gradnja in varovanje digitalne infrastrukture',
-    'interests.ai':               'UI in strojno učenje',
+    'interests.ai':               'AI in strojno učenje',
     'interests.ai.desc':          'Raziskovanje inteligentnih sistemov in podatkovnih rešitev',
     'interests.entrepreneurship':       'Podjetništvo',
     'interests.entrepreneurship.desc':  'Pretvarjanje idej v vplivne produkte in podjetja',
@@ -122,7 +128,7 @@ const translations = {
     'skills.label':       'Strokovnost',
     'skills.title':       'Veščine in tehnologije',
     'skills.networking':  'Omrežja',
-    'skills.ai':          'UI in strojno učenje',
+    'skills.ai':          'AI in strojno učenje',
     'skills.programming': 'Programiranje',
     'skills.tools':       'Orodja in platforme',
 
@@ -171,6 +177,12 @@ const translations = {
     'contact.form.sent':       '✓ Sporočilo poslano!',
 
     /* --- Footer --- */
+    /* --- Project filters --- */
+    'filter.all':              'Vse',
+    'filter.ai':               'AI',
+    'filter.networking':       'Omrežja',
+    'filter.entrepreneurship': 'Podjetništvo',
+
     'footer.text': '© 2025 Nejc Bohinjc.',
   },
 };
@@ -336,6 +348,37 @@ if (profilePhoto && photoInitials) {
     profilePhoto.addEventListener('error', showInitials);
   }
 }
+
+/* ============================================================
+   Project Category Filters
+   ============================================================ */
+const filterBtns   = document.querySelectorAll('.filter-btn');
+const projectCards = document.querySelectorAll('.project-card');
+const projectsGrid = document.getElementById('projectsGrid');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const filter = btn.dataset.filter;
+
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    let visibleCount = 0;
+    projectCards.forEach(card => {
+      const show = filter === 'all' || card.dataset.category === filter;
+      card.classList.toggle('hidden', !show);
+      if (show) visibleCount++;
+    });
+
+    /* Adjust grid columns to fit visible cards */
+    if (projectsGrid) {
+      projectsGrid.style.gridTemplateColumns =
+        visibleCount >= 3 ? 'repeat(3, 1fr)'
+        : visibleCount === 2 ? 'repeat(2, 1fr)'
+        : '1fr';
+    }
+  });
+});
 
 /* ============================================================
    Scroll Progress Bar

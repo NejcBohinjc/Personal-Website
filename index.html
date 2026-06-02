@@ -192,9 +192,16 @@
         <h2 class="section-title" data-i18n="projects.title">Featured Projects</h2>
       </div>
 
-      <div class="projects-grid">
+      <div class="project-filters reveal">
+        <button class="filter-btn active" data-filter="all"              data-i18n="filter.all">All</button>
+        <button class="filter-btn"        data-filter="ai"               data-i18n="filter.ai">AI</button>
+        <button class="filter-btn"        data-filter="networking"       data-i18n="filter.networking">Networking</button>
+        <button class="filter-btn"        data-filter="entrepreneurship" data-i18n="filter.entrepreneurship">Entrepreneurship</button>
+      </div>
+
+      <div class="projects-grid" id="projectsGrid">
         <!-- TODO: replace with real content - update project 1 -->
-        <article class="project-card reveal">
+        <article class="project-card reveal" data-category="networking">
           <div class="project-card-inner">
             <div class="project-meta">
               <span class="project-num">01 / 03</span>
@@ -215,7 +222,7 @@
         </article>
 
         <!-- TODO: replace with real content - update project 2 -->
-        <article class="project-card reveal reveal-delay-1">
+        <article class="project-card reveal reveal-delay-1" data-category="ai">
           <div class="project-card-inner">
             <div class="project-meta">
               <span class="project-num">02 / 03</span>
@@ -236,7 +243,7 @@
         </article>
 
         <!-- TODO: replace with real content - update project 3 -->
-        <article class="project-card reveal reveal-delay-2">
+        <article class="project-card reveal reveal-delay-2" data-category="entrepreneurship">
           <div class="project-card-inner">
             <div class="project-meta">
               <span class="project-num">03 / 03</span>
@@ -331,8 +338,7 @@
           <p class="contact-intro" data-i18n="contact.intro">Have an interesting project, opportunity, or just want to chat? I'm always open to new connections and conversations.</p>
 
           <div class="social-links">
-            <!-- TODO: replace with real content - update email address -->
-            <a href="mailto:your@email.com" class="social-link">
+            <a href="mailto:nbohinjc@gmail.com?subject=Hey%20Nejc" class="social-link">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               <span data-i18n="contact.email.label">Email me</span>
             </a>
