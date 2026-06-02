@@ -717,6 +717,20 @@ body::after {
 /* ================================================================
    CONTACT
    ================================================================ */
+#contact {
+  position: relative;
+}
+#contact::before {
+  content: '';
+  position: absolute;
+  bottom: -100px; right: -100px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(249,115,22,0.07) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+#contact .container { position: relative; z-index: 1; }
+
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1.3fr;
@@ -756,18 +770,18 @@ body::after {
 
 .form-group label {
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--text-3);
+  color: var(--text-2);
 }
 
 .form-group input,
 .form-group textarea {
-  background: rgba(255,255,255,0.025);
-  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 4px;
-  padding: 13px 16px;
+  padding: 14px 16px;
   font-family: var(--body);
   font-size: 0.9rem;
   color: var(--text);
@@ -775,14 +789,18 @@ body::after {
   resize: vertical;
   transition: border-color var(--t1), box-shadow var(--t1), background var(--t1);
 }
+.form-group input:hover,
+.form-group textarea:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+}
 .form-group input:focus,
 .form-group textarea:focus {
   border-color: var(--cyan);
-  background: var(--cyan-b);
-  box-shadow: 0 0 0 3px rgba(0,212,255,0.08);
+  background: rgba(0, 212, 255, 0.06);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.10);
 }
 .form-group input::placeholder,
-.form-group textarea::placeholder { color: var(--text-3); }
+.form-group textarea::placeholder { color: var(--text-2); opacity: 0.5; }
 
 .btn.success {
   background: #10b981 !important;

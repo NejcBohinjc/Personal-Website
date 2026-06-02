@@ -263,32 +263,54 @@ navMenu.querySelectorAll('.nav-link').forEach(link => {
 });
 
 /* ============================================================
-   Contact Form — client-side only (no backend)
+   Contact Form — POSTs to Node.js backend
+   TODO: change CONTACT_API to your deployed backend URL
    ============================================================ */
+const CONTACT_API = 'http://localhost:3000/api/contact';
+
 const contactForm = document.getElementById('contactForm');
 const submitBtn   = document.getElementById('submitBtn');
 
-contactForm.addEventListener('submit', e => {
+contactForm.addEventListener('submit', async e => {
   e.preventDefault();
 
-  /* Basic validation */
   const name    = contactForm.querySelector('#name').value.trim();
   const email   = contactForm.querySelector('#email').value.trim();
   const message = contactForm.querySelector('#message').value.trim();
   if (!name || !email || !message) return;
 
-  /* Success feedback */
   const t = translations[currentLang];
-  submitBtn.textContent = t['contact.form.sent'];
-  submitBtn.classList.add('success');
+  const origText = submitBtn.textContent;
+  submitBtn.textContent = '...';
   submitBtn.disabled = true;
 
-  setTimeout(() => {
-    submitBtn.textContent = t['contact.form.send'];
-    submitBtn.classList.remove('success');
-    submitBtn.disabled = false;
-    contactForm.reset();
-  }, 3500);
+  try {
+    const res = await fetch(CONTACT_API, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ name, email, message }),
+    });
+
+    if (!res.ok) throw new Error('server');
+
+    submitBtn.textContent = t['contact.form.sent'];
+    submitBtn.classList.add('success');
+    setTimeout(() => {
+      submitBtn.textContent = t['contact.form.send'];
+      submitBtn.classList.remove('success');
+      submitBtn.disabled = false;
+      contactForm.reset();
+    }, 3500);
+
+  } catch {
+    submitBtn.textContent = '✗ Failed — try emailing directly';
+    submitBtn.style.cssText = 'background:#ef4444;box-shadow:none';
+    setTimeout(() => {
+      submitBtn.textContent = origText;
+      submitBtn.style.cssText = '';
+      submitBtn.disabled = false;
+    }, 4000);
+  }
 });
 
 /* ============================================================
